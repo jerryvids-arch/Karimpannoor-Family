@@ -976,6 +976,920 @@ new Chart(document.getElementById('branchChart'),{
 });
 </script>
 </body>
+</html>  font-size:clamp(2rem,7vw,3rem);
+  font-weight:700;
+  line-height:1.2;
+  margin-bottom:.3rem;
+  text-shadow:0 2px 16px rgba(0,0,0,.3);
+}
+.title-en{
+  font-family:'Libre Baskerville',serif;
+  font-style:italic;
+  font-size:clamp(.8rem,3vw,.95rem);
+  color:rgba(255,255,255,.5);
+  letter-spacing:.5px;
+  margin-bottom:1.5rem;
+}
+
+/* EVENT BANNER */
+.event-banner{
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(192,138,46,.35);
+  border-radius:12px 12px 0 0;
+  padding:1.25rem 1rem;
+  margin-top:1.5rem;
+}
+.banner-head{
+  font-family:'Noto Serif Malayalam',serif;
+  font-size:clamp(1.05rem,4vw,1.35rem);
+  font-weight:700;
+  color:var(--amber);
+  margin-bottom:1rem;
+  line-height:1.4;
+}
+.event-pills{
+  display:flex;flex-wrap:wrap;justify-content:center;gap:.5rem;
+}
+.pill{
+  background:rgba(255,255,255,.1);
+  border:1px solid rgba(255,255,255,.2);
+  border-radius:8px;
+  padding:.55rem 1rem;
+  font-size:.95rem;
+  line-height:1.4;
+  text-align:left;
+}
+.pill .plabel{
+  display:block;font-size:.7rem;
+  opacity:.55;letter-spacing:.5px;
+  margin-bottom:1px;
+}
+.pill .pval{font-weight:600;font-size:1rem;}
+
+/* ── TREE DIVIDER SVG ── */
+.tree-divider{
+  display:block;width:100%;
+  background:var(--forest);
+  line-height:0;
+}
+.tree-divider svg{display:block;width:100%;}
+
+/* ── NAV ── */
+.nav{
+  background:var(--forest);
+  position:sticky;top:0;z-index:100;
+  display:flex;overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
+  border-bottom:2px solid var(--gold);
+}
+.nav::-webkit-scrollbar{display:none;}
+.nav a{
+  color:rgba(255,255,255,.65);
+  text-decoration:none;
+  padding:.9rem 1.1rem;
+  font-size:.9rem;
+  white-space:nowrap;
+  font-weight:500;
+  transition:color .2s;
+  border-bottom:3px solid transparent;
+  flex-shrink:0;
+}
+.nav a:hover,.nav a.active{color:var(--amber);border-bottom-color:var(--amber);}
+
+/* ── PAGE WRAP ── */
+.page{max-width:680px;margin:0 auto;padding:0 1.1rem;}
+
+/* ── SECTIONS ── */
+section{padding:2.5rem 0 2rem;}
+.sec-ornament{
+  display:flex;align-items:center;gap:.75rem;
+  margin-bottom:.5rem;
+}
+.sec-ornament svg{flex-shrink:0;}
+.sec-ornament span{
+  font-family:'Libre Baskerville',serif;
+  font-style:italic;
+  font-size:.75rem;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  color:var(--gold);
+}
+.sec-title{
+  font-family:'Noto Serif Malayalam',serif;
+  font-size:clamp(1.5rem,5vw,2rem);
+  font-weight:700;
+  color:var(--forest);
+  line-height:1.25;
+  margin-bottom:1.75rem;
+}
+.section-divider{
+  height:1px;
+  background:linear-gradient(to right,var(--gold),rgba(192,138,46,.1));
+  margin-bottom:2rem;
+  opacity:.4;
+}
+
+/* ── COUNTDOWN ── */
+.cd-wrap{
+  background:var(--forest);
+  border-radius:14px;
+  padding:1.75rem 1.25rem;
+  text-align:center;
+  margin-bottom:1.5rem;
+  position:relative;
+  overflow:hidden;
+}
+.cd-wrap::before{
+  content:'';
+  position:absolute;inset:0;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cpath d='M30 5 Q35 20 50 25 Q35 30 30 55 Q25 30 10 25 Q25 20 30 5Z' fill='rgba(255,255,255,0.025)'/%3E%3C/svg%3E") repeat;
+}
+.cd-top-text{
+  font-family:'Noto Serif Malayalam',serif;
+  font-size:clamp(1rem,3.5vw,1.15rem);
+  color:rgba(255,255,255,.85);
+  margin-bottom:1.25rem;
+  position:relative;
+}
+.cd-grid{
+  display:flex;justify-content:center;gap:.75rem;
+  flex-wrap:wrap;position:relative;
+}
+.cd-box{
+  min-width:70px;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(192,138,46,.3);
+  border-radius:10px;
+  padding:.9rem .75rem;
+  color:#fff;
+}
+.cd-n{
+  font-family:'Libre Baskerville',serif;
+  font-size:2.2rem;
+  color:var(--amber);
+  line-height:1;
+  font-weight:700;
+}
+.cd-l{
+  font-size:.72rem;
+  opacity:.6;
+  margin-top:4px;
+  letter-spacing:.5px;
+}
+.cd-bottom-text{
+  font-family:'Noto Serif Malayalam',serif;
+  font-size:clamp(1rem,3.5vw,1.15rem);
+  color:rgba(255,255,255,.85);
+  margin-top:1.25rem;
+  position:relative;
+}
+
+/* ── VENUE ── */
+.venue-card{
+  background:#fff;
+  border:1px solid var(--border);
+  border-left:4px solid var(--gold);
+  border-radius:12px;
+  padding:1.25rem 1.25rem 1.25rem 1.5rem;
+  box-shadow:var(--sh);
+  display:flex;gap:1rem;align-items:flex-start;
+}
+.venue-ico{font-size:2rem;flex-shrink:0;margin-top:2px;}
+.venue-card h4{
+  font-family:'Noto Serif Malayalam',serif;
+  font-size:1.1rem;font-weight:700;
+  color:var(--forest);margin-bottom:.3rem;
+}
+.venue-card p{font-size:.95rem;color:var(--muted);line-height:1.7;}
+.map-link{
+  display:inline-block;margin-top:.6rem;
+  background:var(--forest);color:#fff;
+  font-size:.82rem;padding:6px 16px;
+  border-radius:6px;text-decoration:none;
+  font-weight:500;
+}
+
+/* ── TREE GRAPHIC SECTION ── */
+.tree-section{
+  text-align:center;
+  padding:1.5rem 0 .5rem;
+  position:relative;
+}
+.tree-caption{
+  font-family:'Noto Serif Malayalam',serif;
+  font-size:1rem;color:var(--muted);
+  margin-top:.75rem;font-style:italic;
+}
+
+/* ── PROGRAMME ── */
+.prog-list{display:flex;flex-direction:column;gap:.85rem;}
+.prog-item{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:1.1rem 1.25rem;
+  display:flex;gap:1rem;align-items:flex-start;
+  box-shadow:0 2px 12px rgba(23,53,34,.06);
+  transition:transform .15s,box-shadow .15s;
+}
+.prog-item:active{transform:scale(.99);}
+.prog-item.highlight{
+  background:var(--bg2);
+  border-color:rgba(192,138,46,.3);
+  border-left:4px solid var(--gold);
+}
+.prog-num{
+  width:34px;height:34px;
+  background:var(--forest);
+  color:var(--amber);
+  border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Libre Baskerville',serif;
+  font-size:.88rem;font-weight:700;
+  flex-shrink:0;margin-top:1px;
+}
+.prog-item.highlight .prog-num{background:var(--gold);color:#fff;}
+.prog-body{}
+.prog-title{
+  font-family:'Noto Serif Malayalam',serif;
+  font-size:1.1rem;font-weight:700;
+  color:var(--forest);margin-bottom:.25rem;
+  line-height:1.35;
+}
+.prog-name{
+  font-size:.95rem;color:var(--muted);
+  line-height:1.65;font-weight:500;
+}
+.prog-tag{
+  display:inline-block;margin-top:.4rem;
+  font-size:.7rem;letter-spacing:1.5px;
+  text-transform:uppercase;color:var(--leaf);
+  font-family:'Libre Baskerville',serif;
+  font-style:italic;
+}
+
+/* ── BRANCHES ── */
+.branch-intro{
+  font-size:1rem;color:var(--muted);
+  margin-bottom:1.25rem;line-height:1.7;
+}
+.search-wrap{position:relative;margin-bottom:1.25rem;}
+.search-wrap svg{
+  position:absolute;left:14px;top:50%;transform:translateY(-50%);
+  pointer-events:none;
+}
+.search-in{
+  width:100%;padding:.8rem 1rem .8rem 2.75rem;
+  border:1.5px solid var(--border);
+  border-radius:10px;
+  font-family:'Noto Sans Malayalam',sans-serif;
+  font-size:1rem;color:var(--text);
+  background:#fff;outline:none;
+  transition:border-color .2s;
+}
+.search-in:focus{border-color:var(--leaf);}
+
+/* TREE VISUAL BRANCHES */
+.branch-tree{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:1.5rem 1rem;
+  margin-bottom:1.5rem;
+  box-shadow:var(--sh);
+  overflow:hidden;
+}
+.branch-tree-title{
+  font-family:'Noto Serif Malayalam',serif;
+  font-size:1rem;font-weight:700;
+  color:var(--forest);text-align:center;
+  margin-bottom:1.25rem;
+}
+
+.b-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;}
+.b-card{
+  background:var(--bg);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:1rem;
+  transition:box-shadow .2s;
+}
+.b-card:hover{box-shadow:var(--sh);}
+.b-card .bname{
+  font-family:'Noto Serif Malayalam',serif;
+  font-size:1rem;font-weight:700;
+  color:var(--forest);margin-bottom:.1rem;
+}
+.b-card .beng{
+  font-family:'Libre Baskerville',serif;
+  font-style:italic;font-size:.72rem;
+  color:var(--gold);margin-bottom:.35rem;
+}
+.b-card .bnote{font-size:.82rem;color:var(--muted);margin-bottom:.4rem;}
+.b-tags{display:flex;flex-wrap:wrap;gap:3px;}
+.b-tag{
+  font-size:.7rem;background:var(--pale);
+  color:var(--canopy);padding:2px 7px;border-radius:4px;
+}
+
+/* ── CHART ── */
+.chart-box{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:1.5rem 1rem;
+  box-shadow:var(--sh);
+}
+canvas{max-height:280px;}
+
+/* ── HISTORY ── */
+.history-root{
+  display:flex;flex-direction:column;
+  position:relative;
+  padding-left:2.25rem;
+}
+.history-root::before{
+  content:'';
+  position:absolute;left:10px;top:6px;bottom:6px;
+  width:2px;
+  background:linear-gradient(to bottom,var(--bark),var(--gold),rgba(192,138,46,.1));
+  border-radius:2px;
+}
+.h-entry{
+  position:relative;
+  margin-bottom:1.75rem;
+}
+.h-dot{
+  position:absolute;
+  left:-2.15rem;top:5px;
+  width:22px;height:22px;
+  background:var(--bark);
+  border:2px solid var(--bg);
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 0 0 2px var(--bark);
+}
+.h-year-badge{
+  display:inline-block;
+  background:var(--forest);
+  color:var(--amber);
+  font-family:'Libre Baskerville',serif;
+  font-size:.8rem;font-weight:700;
+  padding:2px 10px;border-radius:4px;
+  margin-bottom:.5rem;letter-spacing:.5px;
+}
+.h-card{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:1rem 1.25rem;
+  box-shadow:0 2px 10px rgba(23,53,34,.06);
+}
+.h-card h4{
+  font-family:'Noto Serif Malayalam',serif;
+  font-size:1.05rem;font-weight:700;
+  color:var(--forest);margin-bottom:.35rem;
+}
+.h-card p{font-size:.95rem;color:var(--muted);line-height:1.8;}
+
+/* ── FOOTER ── */
+footer{
+  background:var(--forest);
+  color:rgba(255,255,255,.5);
+  text-align:center;
+  padding:2.5rem 1rem;
+  font-size:.88rem;
+  line-height:1.9;
+}
+footer .f-title{
+  font-family:'Noto Serif Malayalam',serif;
+  font-size:1.15rem;
+  color:var(--amber);
+  margin-bottom:.35rem;
+}
+footer .f-tree{
+  font-size:2rem;
+  display:block;
+  margin-bottom:.75rem;
+  opacity:.6;
+}
+
+/* ── DESKTOP ADJUST ── */
+@media(min-width:600px){
+  body{font-size:17px;}
+  .pill{min-width:180px;}
+  .prog-title{font-size:1.15rem;}
+  .prog-name{font-size:1rem;}
+  .b-grid{grid-template-columns:repeat(3,1fr);}
+  .header{padding-top:3.5rem;}
+}
+@media(min-width:860px){
+  .b-grid{grid-template-columns:repeat(4,1fr);}
+}
+
+.prog-bullets {
+  list-style: none;
+  margin: .4rem 0 .4rem .1rem;
+  display: flex;
+  flex-direction: column;
+  gap: .35rem;
+}
+.prog-bullets li {
+  font-size: .93rem;
+  color: var(--muted);
+  line-height: 1.6;
+  padding-left: 1.1rem;
+  position: relative;
+  font-weight: 500;
+}
+.prog-bullets li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--gold);
+  font-weight: 700;
+}
+.prog-bullets li strong {
+  color: var(--forest);
+  font-weight: 700;
+}
+.bullet-note {
+  font-size: .8rem;
+  color: var(--leaf);
+  font-style: italic;
+  font-weight: 400;
+}
+</style>
+</head>
+<body>
+
+<!-- ══ HEADER ══ -->
+<div class="header">
+  <!-- Decorative background leaves -->
+  <svg class="header-leaves" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20 280 Q60 200 40 120 Q80 160 100 80 Q110 160 150 140 Q130 200 160 280Z" fill="white"/>
+    <path d="M320 290 Q360 210 340 130 Q380 170 400 90 Q410 170 440 150 Q420 210 450 290Z" fill="white"/>
+    <path d="M150 10 Q170 50 200 40 Q190 70 220 80 Q200 90 195 130 Q175 100 150 110 Q155 70 130 50Z" fill="white"/>
+    <path d="M-10 60 Q20 100 50 85 Q35 115 55 130 Q30 135 20 170 Q5 145 -20 150 Q-10 115 -30 95Z" fill="white"/>
+    <circle cx="370" cy="60" r="25" fill="white" opacity=".5"/>
+    <circle cx="30" cy="250" r="15" fill="white" opacity=".4"/>
+    <circle cx="380" cy="240" r="18" fill="white" opacity=".3"/>
+  </svg>
+
+  <div class="header-content">
+    <div class="badge">✦ 62-ാം വർഷം ✦</div>
+    <h1 class="title-ml">കരിമ്പന്നൂർ<br>കുടുംബയോഗം</h1>
+    <p class="title-en">Karimpannoor Kudumbayogam · Since 1964</p>
+
+    <div class="event-banner">
+      <div class="banner-head">62-ാം വാർഷിക സമ്മേളനം</div>
+      <div class="event-pills">
+        <div class="pill">
+          <span class="plabel">തീയതി</span>
+          <span class="pval">മേയ് 1, 2026 · വെള്ളിയാഴ്ച</span>
+        </div>
+        <div class="pill">
+          <span class="plabel">സമയം</span>
+          <span class="pval">രാവിലെ 11:00 മണി</span>
+        </div>
+        <div class="pill" style="flex:1 1 100%;">
+          <span class="plabel">സ്ഥലം</span>
+          <span class="pval">സെന്റ് മേരീസ് കത്തീഡ്രൽ ഹാൾ, മണർകാട്, കോട്ടയം</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- wave transition from header -->
+<div class="tree-divider">
+  <svg viewBox="0 0 400 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,0 Q50,40 100,20 Q150,0 200,25 Q250,50 300,20 Q350,0 400,30 L400,0 Z" fill="#173522"/>
+    <path d="M0,40 Q100,10 200,30 Q300,50 400,15 L400,40Z" fill="#fdf8ef"/>
+  </svg>
+</div>
+
+<!-- ══ NAV ══ -->
+<nav class="nav">
+  <a href="#home"      onclick="setActive(this)">ആമുഖം</a>
+  <a href="#schedule"  onclick="setActive(this)">📋 പരിപാടി</a>
+  <a href="#branches"  onclick="setActive(this)">🌿 ശാഖകൾ</a>
+  <a href="#chart"     onclick="setActive(this)">📊 ചാർട്ട്</a>
+  <a href="#history"   onclick="setActive(this)">📜 ചരിത്രം</a>
+</nav>
+
+<div class="page">
+
+<!-- ══ HOME: COUNTDOWN + VENUE ══ -->
+<section id="home">
+  <div class="cd-wrap">
+    <div class="cd-top-text">നമ്മുടെ കുടുംബയോഗ വാർഷികത്തിലേക്ക് ഇനി വെറും</div>
+    <div class="cd-grid" id="countdown">
+      <div class="cd-box"><div class="cd-n" id="cd-d">--</div><div class="cd-l">ദിവസം</div></div>
+      <div class="cd-box"><div class="cd-n" id="cd-h">--</div><div class="cd-l">മണിക്കൂർ</div></div>
+      <div class="cd-box"><div class="cd-n" id="cd-m">--</div><div class="cd-l">മിനിറ്റ്</div></div>
+      <div class="cd-box"><div class="cd-n" id="cd-s">--</div><div class="cd-l">സെക്കൻഡ്</div></div>
+    </div>
+    <div class="cd-bottom-text" id="cd-suffix">മാത്രം ബാക്കി</div>
+  </div>
+
+  <div class="venue-card">
+    <div class="venue-ico">⛪</div>
+    <div>
+      <h4>സെന്റ് മേരീസ് കത്തീഡ്രൽ ഹാൾ</h4>
+      <p>Manarcad, Kottayam, Kerala<br>മേയ് 1, 2026 · രാവിലെ 11:00 മണി</p>
+      <a class="map-link" href="https://maps.google.com/?q=St+Marys+Cathedral+Manarcad+Kottayam" target="_blank">Google Maps-ൽ കാണുക ↗</a>
+    </div>
+  </div>
+</section>
+
+<!-- decorative leaf divider -->
+<div style="text-align:center;padding:.5rem 0 1.5rem;opacity:.3;">
+  <svg width="180" height="24" viewBox="0 0 180 24" xmlns="http://www.w3.org/2000/svg">
+    <line x1="0" y1="12" x2="65" y2="12" stroke="#c08a2e" stroke-width="1"/>
+    <path d="M75 12 Q82 4 90 12 Q82 20 75 12Z" fill="#3d7a52"/>
+    <path d="M90 12 Q97 4 105 12 Q97 20 90 12Z" fill="#3d7a52"/>
+    <line x1="115" y1="12" x2="180" y2="12" stroke="#c08a2e" stroke-width="1"/>
+  </svg>
+</div>
+
+<!-- ══ PROGRAMME ══ -->
+<section id="schedule">
+  <div class="sec-ornament">
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M9 1 Q11 6 16 7 Q11 8 9 17 Q7 8 2 7 Q7 6 9 1Z" fill="#c08a2e"/>
+    </svg>
+    <span>Official Programme</span>
+  </div>
+  <div class="sec-title">ഔദ്യോഗിക പരിപാടി</div>
+
+  <div class="prog-list">
+
+    <div class="prog-item">
+      <div class="prog-num">1</div>
+      <div class="prog-body">
+        <div class="prog-title">പ്രാർഥനാ ഗാനം</div>
+        <div class="prog-name">കുടുംബ അംഗങ്ങൾ</div>
+        <span class="prog-tag">Prayer Song</span>
+      </div>
+    </div>
+
+    <div class="prog-item">
+      <div class="prog-num">2</div>
+      <div class="prog-body">
+        <div class="prog-title">അനുസ്മരണം</div>
+        <div class="prog-name">റവ. ഫാ. വിജി കുരുവിള, എടാട്ട്</div>
+        <span class="prog-tag">Remembrance of Departed</span>
+      </div>
+    </div>
+
+    <div class="prog-item">
+      <div class="prog-num">3</div>
+      <div class="prog-body">
+        <div class="prog-title">സ്വാഗതം</div>
+        <div class="prog-name">ശ്രീ. കുരുവിള K. മണി, കരിമ്പന്നൂർ</div>
+        <span class="prog-tag">Welcome Speech</span>
+      </div>
+    </div>
+
+    <div class="prog-item">
+      <div class="prog-num">4</div>
+      <div class="prog-body">
+        <div class="prog-title">സെക്രട്ടറി റിപ്പോർട്ട്</div>
+        <div class="prog-name">ശ്രീ. ലിജു K. ജോൺ, കരിമ്പന്നൂർ</div>
+        <span class="prog-tag">Secretary's Report</span>
+      </div>
+    </div>
+
+    <div class="prog-item">
+      <div class="prog-num">5</div>
+      <div class="prog-body">
+        <div class="prog-title">അദ്ധ്യക്ഷ പ്രസംഗം</div>
+        <div class="prog-name">ശ്രീ. വർഗ്ഗീസ് K. മണി, കരിമ്പന്നൂർ</div>
+        <span class="prog-tag">Presidential Address</span>
+      </div>
+    </div>
+
+    <div class="prog-item">
+      <div class="prog-num">6</div>
+      <div class="prog-body">
+        <div class="prog-title">ഗാനാലാപനം</div>
+        <div class="prog-name">കുടുംബ അംഗങ്ങൾ</div>
+        <span class="prog-tag">Music</span>
+      </div>
+    </div>
+
+    <div class="prog-item highlight">
+      <div class="prog-num">7</div>
+      <div class="prog-body">
+        <div class="prog-title">ഉദ്ഘാടനം</div>
+        <div class="prog-name">Chief Guests</div>
+        <span class="prog-tag">Inauguration</span>
+      </div>
+    </div>
+
+    <div class="prog-item highlight">
+      <div class="prog-num">8</div>
+      <div class="prog-body">
+        <div class="prog-title">ആശംസ പ്രസംഗം &amp; ആദരവ്</div>
+        <div class="prog-name">ശ്രീ. E.C. തോമസ്, ഈരേച്ചേരിൽ</div>
+        <ul class="prog-bullets">
+          <li>ആശംസ പ്രസംഗം — ശ്രീ. E.C. തോമസ്, ഈരേച്ചേരിൽ</li>
+          <li>ആദരവ് — ജില്ലാ പഞ്ചായത്ത് മെമ്പറായി തിരഞ്ഞെടുക്കപ്പെട്ട സ്മത്. ഗ്രേസി കുര്യാക്കോസ്, കരിമ്പന്നൂർ</li>
+          <li>3 പ്രസിഡന്റുമാർ ചേർന്ന് മൊമെന്റോ നൽകി ആദരിക്കുന്നു</li>
+        </ul>
+        <span class="prog-tag">Felicitation &amp; Honour</span>
+      </div>
+    </div>
+
+    <div class="prog-item">
+      <div class="prog-num">9</div>
+      <div class="prog-body">
+        <div class="prog-title">മറുപടി പ്രസംഗം</div>
+        <div class="prog-name">സ്മത്. ഗ്രേസി കുര്യാക്കോസ്, കരിമ്പന്നൂർ</div>
+        <span class="prog-tag">Reply Speech</span>
+      </div>
+    </div>
+
+    <div class="prog-item">
+      <div class="prog-num">10</div>
+      <div class="prog-body">
+        <div class="prog-title">ഗാനാലാപനം</div>
+        <div class="prog-name">കുടുംബ അംഗങ്ങൾ</div>
+        <span class="prog-tag">Music</span>
+      </div>
+    </div>
+
+    <div class="prog-item">
+      <div class="prog-num">11</div>
+      <div class="prog-body">
+        <div class="prog-title">ആശംസ പ്രസംഗങ്ങൾ</div>
+        <ul class="prog-bullets">
+          <li>റവ. ഫാ. എബ്രഹാം, കരിമ്പന്നൂർ</li>
+          <li>V.T. മാർക്കോസ്, തൃക്കോതമംഗലം ശാഖ</li>
+          <li>Dr. എബ്രഹാം വർഗ്ഗീസ്, തോട്ടപ്പുഴശ്ശേരി ശാഖ</li>
+        </ul>
+        <span class="prog-tag">Felicitations</span>
+      </div>
+    </div>
+
+    <div class="prog-item highlight">
+      <div class="prog-num">12</div>
+      <div class="prog-body">
+        <div class="prog-title">മെറിറ്റ് അവാർഡ്</div>
+        <ul class="prog-bullets">
+          <li><strong>അബിയ മറിയം ഷാജി</strong> — CBSE 10th<br><span class="bullet-note">Highest Mark Ever in the Family</span></li>
+          <li><strong>ജസ്റ്റിൻ കുരുവിള സുമോദ്</strong> — 12th<br><span class="bullet-note">Merit Award</span></li>
+        </ul>
+        <span class="prog-tag">Merit Awards</span>
+      </div>
+    </div>
+
+    <div class="prog-item">
+      <div class="prog-num">13</div>
+      <div class="prog-body">
+        <div class="prog-title">നന്ദി പ്രകടനം</div>
+        <div class="prog-name">ശ്രീ. E.J. രാജൻ, ഈരേച്ചേരിൽ</div>
+        <span class="prog-tag">Vote of Thanks</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- leaf divider -->
+<div style="text-align:center;padding:.5rem 0 1rem;opacity:.3;">
+  <svg width="180" height="24" viewBox="0 0 180 24" xmlns="http://www.w3.org/2000/svg">
+    <line x1="0" y1="12" x2="65" y2="12" stroke="#c08a2e" stroke-width="1"/>
+    <path d="M75 12 Q82 4 90 12 Q82 20 75 12Z" fill="#3d7a52"/>
+    <path d="M90 12 Q97 4 105 12 Q97 20 90 12Z" fill="#3d7a52"/>
+    <line x1="115" y1="12" x2="180" y2="12" stroke="#c08a2e" stroke-width="1"/>
+  </svg>
+</div>
+
+<!-- ══ FAMILY BRANCHES ══ -->
+<section id="branches">
+  <div class="sec-ornament">
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M9 1 Q11 6 16 7 Q11 8 9 17 Q7 8 2 7 Q7 6 9 1Z" fill="#c08a2e"/>
+    </svg>
+    <span>Family Branches</span>
+  </div>
+  <div class="sec-title">കുടുംബ ശാഖകൾ</div>
+
+  <!-- Tree root graphic -->
+  <div class="branch-tree">
+    <div class="branch-tree-title">ഒരൊറ്റ വേര്, അനേകം ശാഖകൾ — 1730 മുതൽ</div>
+    <svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-height:200px;">
+      <!-- trunk -->
+      <path d="M155 195 Q158 170 160 140" stroke="#5c3318" stroke-width="8" fill="none" stroke-linecap="round"/>
+      <!-- main branches -->
+      <path d="M160 140 Q140 120 100 105" stroke="#5c3318" stroke-width="5" fill="none" stroke-linecap="round"/>
+      <path d="M160 140 Q180 120 220 105" stroke="#5c3318" stroke-width="5" fill="none" stroke-linecap="round"/>
+      <path d="M160 140 Q158 115 160 90" stroke="#5c3318" stroke-width="5" fill="none" stroke-linecap="round"/>
+      <!-- sub branches left -->
+      <path d="M100 105 Q75 90 55 80" stroke="#3d7a52" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <path d="M100 105 Q90 85 85 65" stroke="#3d7a52" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <path d="M100 105 Q110 88 115 72" stroke="#3d7a52" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <!-- sub branches right -->
+      <path d="M220 105 Q245 90 265 80" stroke="#3d7a52" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <path d="M220 105 Q230 85 235 65" stroke="#3d7a52" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <path d="M220 105 Q210 88 205 72" stroke="#3d7a52" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <!-- sub branches center -->
+      <path d="M160 90 Q145 70 135 52" stroke="#3d7a52" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <path d="M160 90 Q175 70 185 52" stroke="#3d7a52" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <path d="M160 90 Q160 68 160 48" stroke="#3d7a52" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <!-- leaves / circles at tips -->
+      <circle cx="55" cy="75" r="10" fill="#3d7a52" opacity=".85"/>
+      <circle cx="85" cy="60" r="9" fill="#3d7a52" opacity=".85"/>
+      <circle cx="115" cy="66" r="9" fill="#255c38" opacity=".85"/>
+      <circle cx="135" cy="46" r="9" fill="#255c38" opacity=".85"/>
+      <circle cx="160" cy="42" r="10" fill="#173522" opacity=".9"/>
+      <circle cx="185" cy="46" r="9" fill="#255c38" opacity=".85"/>
+      <circle cx="205" cy="66" r="9" fill="#255c38" opacity=".85"/>
+      <circle cx="235" cy="60" r="9" fill="#3d7a52" opacity=".85"/>
+      <circle cx="265" cy="75" r="10" fill="#3d7a52" opacity=".85"/>
+      <!-- root lines -->
+      <path d="M155 195 Q130 198 105 195" stroke="#5c3318" stroke-width="3" fill="none" stroke-linecap="round" opacity=".5"/>
+      <path d="M165 195 Q190 198 215 195" stroke="#5c3318" stroke-width="3" fill="none" stroke-linecap="round" opacity=".5"/>
+      <path d="M150 195 Q125 202 100 205" stroke="#5c3318" stroke-width="2" fill="none" stroke-linecap="round" opacity=".3"/>
+      <path d="M170 195 Q195 202 220 205" stroke="#5c3318" stroke-width="2" fill="none" stroke-linecap="round" opacity=".3"/>
+      <!-- branch name labels -->
+      <text x="38" y="100" font-size="7" fill="#173522" font-family="sans-serif" text-anchor="middle">കരിമ്പന്നൂർ</text>
+      <text x="78" y="82" font-size="7" fill="#173522" font-family="sans-serif" text-anchor="middle">കൊല്ലാട്</text>
+      <text x="118" y="86" font-size="7" fill="#173522" font-family="sans-serif" text-anchor="middle">തൊടുപുഴ</text>
+      <text x="132" y="66" font-size="7" fill="#173522" font-family="sans-serif" text-anchor="middle">പടിക്കൽ</text>
+      <text x="160" y="34" font-size="7" fill="#173522" font-family="sans-serif" text-anchor="middle">മണർകാട്</text>
+      <text x="188" y="66" font-size="7" fill="#173522" font-family="sans-serif" text-anchor="middle">പുത്തൻ.</text>
+      <text x="208" y="86" font-size="7" fill="#173522" font-family="sans-serif" text-anchor="middle">വാഴക്കുള.</text>
+      <text x="238" y="82" font-size="7" fill="#173522" font-family="sans-serif" text-anchor="middle">മണിമലേ.</text>
+      <text x="272" y="100" font-size="7" fill="#173522" font-family="sans-serif" text-anchor="middle">എറണാകുളം</text>
+      <!-- root label -->
+      <text x="160" y="200" font-size="7.5" fill="#5c3318" font-family="sans-serif" text-anchor="middle" font-weight="bold">1730 · മണർകാട്</text>
+    </svg>
+  </div>
+
+  <div class="search-wrap">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="6.5" cy="6.5" r="5" stroke="#888" stroke-width="1.5"/>
+      <line x1="10.5" y1="10.5" x2="15" y2="15" stroke="#888" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+    <input class="search-in" type="text" id="branchSearch" placeholder="ശാഖ തിരയുക… (Karimpannoor, Ernakulam...)" oninput="filterBranches()">
+  </div>
+  <div class="b-grid" id="branchesGrid"></div>
+</section>
+
+<!-- leaf divider -->
+<div style="text-align:center;padding:.5rem 0 1rem;opacity:.3;">
+  <svg width="180" height="24" viewBox="0 0 180 24" xmlns="http://www.w3.org/2000/svg">
+    <line x1="0" y1="12" x2="65" y2="12" stroke="#c08a2e" stroke-width="1"/>
+    <path d="M75 12 Q82 4 90 12 Q82 20 75 12Z" fill="#3d7a52"/>
+    <path d="M90 12 Q97 4 105 12 Q97 20 90 12Z" fill="#3d7a52"/>
+    <line x1="115" y1="12" x2="180" y2="12" stroke="#c08a2e" stroke-width="1"/>
+  </svg>
+</div>
+
+<!-- ══ CHART ══ -->
+<section id="chart">
+  <div class="sec-ornament">
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M9 1 Q11 6 16 7 Q11 8 9 17 Q7 8 2 7 Q7 6 9 1Z" fill="#c08a2e"/>
+    </svg>
+    <span>Distribution</span>
+  </div>
+  <div class="sec-title">ശാഖ വിതരണം</div>
+  <div class="chart-box">
+    <canvas id="branchChart"></canvas>
+  </div>
+</section>
+
+<!-- ══ HISTORY ══ -->
+<section id="history">
+  <div class="sec-ornament">
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M9 1 Q11 6 16 7 Q11 8 9 17 Q7 8 2 7 Q7 6 9 1Z" fill="#c08a2e"/>
+    </svg>
+    <span>Our Story</span>
+  </div>
+  <div class="sec-title">കുടുംബ ചരിത്രം</div>
+
+  <div class="history-root">
+    <div class="h-entry">
+      <div class="h-dot"></div>
+      <div class="h-year-badge">~1730–1740</div>
+      <div class="h-card">
+        <h4>മണർകാടിലെ ആഗമനം</h4>
+        <p>കരിമ്പന്നൂർ കുടുംബം ഏകദേശം 300 വർഷം മുമ്പ് മണർകാടിൽ സ്ഥിരതാമസമാക്കി. St. Mary's Jacobite Syrian Cathedral-ന് സമീപം ഈ കുടുംബം വേരൂന്നി. കോര, ഇട്ടി, മത്തായി എന്നിവർ പ്രധാന പൂർവ്വ പിതാക്കന്മാരായിരുന്നു.</p>
+      </div>
+    </div>
+    <div class="h-entry">
+      <div class="h-dot"></div>
+      <div class="h-year-badge">1964</div>
+      <div class="h-card">
+        <h4>കുടുംബയോഗം സ്ഥാപനം</h4>
+        <p>കരിമ്പന്നൂർ കുടുംബയോഗം ഔദ്യോഗികമായി 1964-ൽ സ്ഥാപിതമായി. കേരളത്തിന്റെ വിവിധ ഭാഗങ്ങളിൽ ചിതറിക്കിടക്കുന്ന കുടുംബ ശാഖകളെ ഒരുമിപ്പിക്കാനുള്ള ഉദ്ദേശ്യത്തോടെ ആരംഭിച്ചു.</p>
+      </div>
+    </div>
+    <div class="h-entry">
+      <div class="h-dot"></div>
+      <div class="h-year-badge">1964 – 2025</div>
+      <div class="h-card">
+        <h4>61 വർഷങ്ങൾ — ഒരൊറ്റ വൃക്ഷം, അനേകം ശാഖകൾ</h4>
+        <p>ഓരോ വർഷവും വാർഷിക സമ്മേളനം കുടുംബ ഐക്യം ഉറപ്പിക്കുന്നു. കരിമ്പന്നൂർ, കരിപ്പാപ്പുറത്ത്, പുത്തൻപുരയിൽ, മണിമലേത്ത്, വാഴക്കുളത്ത്, പടിക്കൽ, കൊല്ലാട്, തൊടുപുഴ, എറണാകുളം എന്നിങ്ങനെ ശാഖകൾ വ്യാപിച്ചിരിക്കുന്നു.</p>
+      </div>
+    </div>
+    <div class="h-entry">
+      <div class="h-dot" style="background:var(--gold);box-shadow:0 0 0 2px var(--gold);"></div>
+      <div class="h-year-badge" style="background:var(--gold);">2026</div>
+      <div class="h-card" style="border-color:rgba(192,138,46,.3);background:var(--bg2);">
+        <h4>62-ാം വാർഷിക സമ്മേളനം</h4>
+        <p>St. Mary's Cathedral Hall, മണർകാടിൽ മേയ് 1-ന് 62-ാം വർഷത്തിലെ വാർഷിക സമ്മേളനം നടക്കുന്നു.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div><!-- .page -->
+
+<footer>
+  <span class="f-tree">🌳</span>
+  <div class="f-title">കരിമ്പന്നൂർ കുടുംബയോഗം</div>
+  62-ാം വാർഷിക സമ്മേളനം · മേയ് 1, 2026<br>
+  St. Mary's Cathedral Hall, Manarcad, Kottayam<br>
+  <span style="opacity:.3;font-size:.75rem;">1730 – 2026 · Since 1964</span>
+</footer>
+
+<script>
+function tick(){
+  const diff = new Date('2026-05-01T11:00:00+05:30') - new Date();
+  if(diff<=0){
+    document.getElementById('countdown').innerHTML='<p style="font-family:Noto Serif Malayalam,serif;color:var(--amber);font-size:1.1rem;padding:1rem 0;">🎉 സമ്മേളനം ആരംഭിച്ചു!</p>';
+    document.getElementById('cd-suffix').style.display='none';
+    return;
+  }
+  document.getElementById('cd-d').textContent=Math.floor(diff/86400000);
+  document.getElementById('cd-h').textContent=String(Math.floor(diff%86400000/3600000)).padStart(2,'0');
+  document.getElementById('cd-m').textContent=String(Math.floor(diff%3600000/60000)).padStart(2,'0');
+  document.getElementById('cd-s').textContent=String(Math.floor(diff%60000/1000)).padStart(2,'0');
+}
+tick(); setInterval(tick,1000);
+
+function setActive(el){
+  document.querySelectorAll('.nav a').forEach(a=>a.classList.remove('active'));
+  el.classList.add('active');
+}
+
+const branches=[
+  {name:'കരിമ്പന്നൂർ',    eng:'Karimpannoor',         note:'Manarcad — പ്രധാന ശാഖ',tags:['മണി','ജോൺ','കുരുവിള']},
+  {name:'കരിപ്പാപ്പുറത്ത്',eng:'Karippappurathu',      note:'Manarcad',              tags:['മത്തായി','കുര്യാക്കോസ്']},
+  {name:'പുത്തൻപുരയിൽ',  eng:'Puthenpurayil',         note:'Kottayam',              tags:['തോമസ്','വർഗ്ഗീസ്']},
+  {name:'മണിമലേത്ത്',    eng:'Manimalethu',           note:'Kottayam',              tags:['ഇട്ടി','ജോസ്']},
+  {name:'വാഴക്കുളത്ത്',   eng:'Vazhakulathu (Olassa)', note:'Olassa',                tags:['കോര','അന്തോണി']},
+  {name:'പടിക്കൽ',       eng:'Padickal',              note:'Manarcad',              tags:['ജോർജ്','ഫിലിപ്']},
+  {name:'കൊല്ലാട്',      eng:'Kollad',                note:'Kottayam',              tags:['രാജൻ','അബ്രഹാം']},
+  {name:'തൊടുപുഴ',       eng:'Thodupuzha',            note:'Idukki',                tags:['സാജി','ബിജു']},
+  {name:'എറണാകുളം',      eng:'Ernakulam',             note:'Ernakulam',             tags:['തോമസ്','രാജൻ']},
+];
+
+function render(list){
+  document.getElementById('branchesGrid').innerHTML=list.map(b=>`
+    <div class="b-card">
+      <div class="bname">${b.name}</div>
+      <div class="beng">${b.eng}</div>
+      <div class="bnote">${b.note}</div>
+      <div class="b-tags">${b.tags.map(t=>`<span class="b-tag">${t}</span>`).join('')}</div>
+    </div>`).join('');
+}
+render(branches);
+
+function filterBranches(){
+  const q=document.getElementById('branchSearch').value.toLowerCase();
+  render(branches.filter(b=>
+    b.name.includes(q)||b.eng.toLowerCase().includes(q)||
+    b.note.toLowerCase().includes(q)||b.tags.some(t=>t.includes(q))
+  ));
+}
+
+new Chart(document.getElementById('branchChart'),{
+  type:'doughnut',
+  data:{
+    labels:branches.map(b=>b.eng),
+    datasets:[{
+      data:[30,12,10,8,8,7,8,8,9],
+      backgroundColor:['#173522','#255c38','#3d7a52','#6aaa80','#a8d4b4','#c08a2e','#8c6820','#5c3318','#3a2010'],
+      borderWidth:3,borderColor:'#fdf8ef',
+    }]
+  },
+  options:{
+    responsive:true,
+    plugins:{
+      legend:{position:'bottom',labels:{font:{size:11},padding:10,color:'#333'}},
+      tooltip:{callbacks:{label:ctx=>` ${ctx.label}: ~${ctx.parsed}%`}}
+    }
+  }
+});
+</script>
+</body>
 </html>    overflow-x: auto;
     border-bottom: 2px solid var(--gold);
   }
