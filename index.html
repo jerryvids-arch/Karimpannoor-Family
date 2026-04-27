@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="ml">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>കരിമ്പന്നൂർ കുടുംബയോഗം</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Malayalam:wght@400;600;700&family=Noto+Sans+Malayalam:wght@400;500&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root {
+    --green-dark: #1a3d2b;
+    --green-mid: #2d6a4f;
+    --green-light: #52b788;
+    --green-pale: #d8f3dc;
+    --bark: #6b3f1e;
+    --bark-light: #a0522d;
+    --gold: #c9a84c;
+    --cream: #fdf8f0;
+    --text: #1c1c1c;
+    --text-muted: #5a5a5a;
+    --leaf-shadow: 0 4px 20px rgba(26,61,43,0.12);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Noto Sans Malayalam', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: linear-gradient(160deg, var(--green-dark) 0%, var(--green-mid) 60%, #1a4c35 100%);
+    color: #fff;
+    text-align: center;
+    padding: 3rem 1.5rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Ccircle cx='40' cy='40' r='35' fill='none' stroke='rgba(255,255,255,0.04)' stroke-width='1'/%3E%3Ccircle cx='40' cy='40' r='20' fill='none' stroke='rgba(255,255,255,0.04)' stroke-width='1'/%3E%3C/svg%3E") repeat;
+  }
+  .header-badge {
+    display: inline-block;
+    background: rgba(201,168,76,0.25);
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    padding: 4px 16px;
+    border-radius: 20px;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+  }
+  header h1 {
+    font-family: 'Noto Serif Malayalam', serif;
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 0.4rem;
+  }
+  header h2 {
+    font-family: 'Noto Serif Malayalam', serif;
+    font-size: clamp(1rem, 3vw, 1.4rem);
+    font-weight: 400;
+    opacity: 0.85;
+    margin-bottom: 1.5rem;
+  }
+  .event-meta {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem;
+    font-size: 0.9rem;
+  }
+  .event-meta span {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 8px;
+    padding: 6px 16px;
+  }
+  .event-meta strong { color: var(--gold); }
+
+  /* ── NAV ── */
+  nav {
+    background: var(--green-dark);
+    position: sticky; top: 0; z-index: 100;
+    display: flex; justify-content: center; gap: 0;
+    overflow-x: auto;
+    border-bottom: 2px solid var(--gold);
+  }
+  nav a {
+    color: rgba(255,255,255,0.75);
+    text-decoration: none;
+    padding: 0.85rem 1.2rem;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    transition: all 0.2s;
+    border-bottom: 3px solid transparent;
+  }
+  nav a:hover, nav a.active {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    background: rgba(201,168,76,0.08);
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: 3rem 1.5rem; max-width: 960px; margin: 0 auto; }
+  .section-title {
+    font-family: 'Noto Serif Malayalam', serif;
+    font-size: 1.6rem;
+    color: var(--green-dark);
+    margin-bottom: 0.4rem;
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .section-title::after {
+    content: '';
+    flex: 1; height: 2px;
+    background: linear-gradient(to right, var(--green-light), transparent);
+  }
+  .section-sub { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 2rem; }
+
+  /* ── COUNTDOWN ── */
+  #countdown-section { background: var(--green-pale); border-radius: 16px; padding: 2rem; text-align: center; margin-bottom: 2.5rem; }
+  .countdown-grid { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-top: 1rem; }
+  .countdown-box {
+    background: var(--green-dark);
+    color: #fff;
+    border-radius: 12px;
+    padding: 1rem 1.5rem;
+    min-width: 70px;
+  }
+  .countdown-box .num { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--gold); line-height: 1; }
+  .countdown-box .lbl { font-size: 0.7rem; opacity: 0.75; margin-top: 4px; }
+
+  /* ── AGENDA TIMELINE ── */
+  .timeline { position: relative; padding-left: 2.5rem; }
+  .timeline::before {
+    content: '';
+    position: absolute; left: 12px; top: 0; bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--green-light), var(--bark-light));
+  }
+  .timeline-item {
+    position: relative;
+    background: #fff;
+    border: 1px solid rgba(26,61,43,0.1);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1rem;
+    box-shadow: var(--leaf-shadow);
+    transition: transform 0.2s;
+  }
+  .timeline-item:hover { transform: translateX(4px); }
+  .timeline-item::before {
+    content: attr(data-num);
+    position: absolute;
+    left: -2.15rem;
+    width: 24px; height: 24px;
+    background: var(--green-mid);
+    color: #fff;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.7rem; font-weight: 600;
+    border: 2px solid var(--green-pale);
+  }
+  .timeline-item h4 {
+    font-family: 'Noto Serif Malayalam', serif;
+    font-size: 1rem;
+    color: var(--green-dark);
+    margin-bottom: 0.25rem;
+  }
+  .timeline-item p { font-size: 0.85rem; color: var(--text-muted); }
+  .timeline-item .tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    background: var(--green-pale);
+    color: var(--green-mid);
+    border-radius: 20px;
+    padding: 2px 10px;
+    margin-top: 6px;
+  }
+  .timeline-item.highlight { border-left: 3px solid var(--gold); }
+
+  /* ── FAMILY BRANCHES ── */
+  .search-bar {
+    width: 100%;
+    padding: 0.75rem 1.25rem;
+    border: 1.5px solid rgba(26,61,43,0.2);
+    border-radius: 30px;
+    font-size: 0.95rem;
+    font-family: 'Noto Sans Malayalam', sans-serif;
+    background: #fff;
+    margin-bottom: 1.5rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .search-bar:focus { border-color: var(--green-mid); }
+  .branches-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+  .branch-card {
+    background: #fff;
+    border: 1px solid rgba(26,61,43,0.12);
+    border-radius: 14px;
+    padding: 1.25rem;
+    box-shadow: var(--leaf-shadow);
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: default;
+    position: relative;
+    overflow: hidden;
+  }
+  .branch-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 4px;
+    background: linear-gradient(to right, var(--green-mid), var(--green-light));
+  }
+  .branch-card:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(26,61,43,0.15); }
+  .branch-icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
+  .branch-card h4 {
+    font-family: 'Noto Serif Malayalam', serif;
+    font-size: 1rem;
+    color: var(--green-dark);
+    margin-bottom: 0.2rem;
+  }
+  .branch-card p { font-size: 0.8rem; color: var(--text-muted); }
+  .branch-card .sub-branches { margin-top: 0.5rem; }
+  .branch-card .sub-tag {
+    display: inline-block;
+    font-size: 0.68rem;
+    background: var(--green-pale);
+    color: var(--green-dark);
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin: 2px;
+  }
+
+  /* ── CHART ── */
+  .chart-wrap {
+    background: #fff;
+    border: 1px solid rgba(26,61,43,0.1);
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: var(--leaf-shadow);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  canvas { max-height: 320px; }
+
+  /* ── HISTORY ── */
+  .history-card {
+    background: #fff;
+    border-left: 4px solid var(--bark);
+    border-radius: 0 12px 12px 0;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.25rem;
+    box-shadow: var(--leaf-shadow);
+  }
+  .history-card .year {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: var(--bark);
+    margin-bottom: 0.3rem;
+  }
+  .history-card p { font-size: 0.9rem; line-height: 1.7; color: var(--text-muted); }
+  .history-card h4 {
+    font-family: 'Noto Serif Malayalam', serif;
+    color: var(--green-dark);
+    margin-bottom: 0.3rem;
+  }
+
+  /* ── VENUE ── */
+  .venue-card {
+    background: var(--green-dark);
+    color: #fff;
+    border-radius: 16px;
+    padding: 2rem;
+    display: flex; flex-wrap: wrap; gap: 1.5rem;
+    align-items: flex-start;
+  }
+  .venue-card .venue-icon { font-size: 2.5rem; }
+  .venue-card h4 {
+    font-family: 'Noto Serif Malayalam', serif;
+    font-size: 1.2rem;
+    color: var(--gold);
+    margin-bottom: 0.4rem;
+  }
+  .venue-card p { opacity: 0.85; font-size: 0.9rem; line-height: 1.7; }
+  .venue-map-btn {
+    display: inline-block;
+    margin-top: 1rem;
+    background: var(--gold);
+    color: var(--green-dark);
+    font-weight: 600;
+    padding: 8px 20px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-size: 0.85rem;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--green-dark);
+    color: rgba(255,255,255,0.65);
+    text-align: center;
+    padding: 2rem 1rem;
+    font-size: 0.8rem;
+    margin-top: 3rem;
+  }
+  footer strong { color: var(--gold); }
+
+  /* ── DECORATIVE TREE ── */
+  .tree-divider {
+    text-align: center;
+    color: var(--green-light);
+    font-size: 1.5rem;
+    margin: 1rem 0;
+    opacity: 0.4;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-badge">62-ാം വാർഷിക സമ്മേളനം · 2026</div>
+  <h1>കരിമ്പന്നൂർ കുടുംബയോഗം</h1>
+  <h2>Karimpannoor Kudumbayogam Heritage Portal</h2>
+  <div class="event-meta">
+    <span>📅 <strong>മേയ് 1, 2026</strong> — വെള്ളി</span>
+    <span>🕙 <strong>11:00 AM</strong></span>
+    <span>📍 <strong>St. Mary's Cathedral Hall</strong>, Manarcad</span>
+  </div>
+</header>
+
+<nav>
+  <a href="#schedule" onclick="setActive(this)">📋 പരിപാടി</a>
+  <a href="#branches" onclick="setActive(this)">🌿 കുടുംബ ശാഖകൾ</a>
+  <a href="#chart" onclick="setActive(this)">📊 ചാർട്ട്</a>
+  <a href="#history" onclick="setActive(this)">📜 ചരിത്രം</a>
+  <a href="#venue" onclick="setActive(this)">📍 സ്ഥലം</a>
+</nav>
+
+<!-- COUNTDOWN -->
+<section>
+  <div id="countdown-section">
+    <div class="section-title" style="justify-content:center; font-size:1.1rem;">⏳ സമ്മേളനത്തിലേക്ക് ബാക്കി</div>
+    <div class="countdown-grid" id="countdown">
+      <div class="countdown-box"><div class="num" id="cd-d">--</div><div class="lbl">ദിവസം</div></div>
+      <div class="countdown-box"><div class="num" id="cd-h">--</div><div class="lbl">മണിക്കൂർ</div></div>
+      <div class="countdown-box"><div class="num" id="cd-m">--</div><div class="lbl">മിനിറ്റ്</div></div>
+      <div class="countdown-box"><div class="num" id="cd-s">--</div><div class="lbl">സെക്കൻഡ്</div></div>
+    </div>
+  </div>
+
+  <!-- VENUE quick info -->
+  <div id="venue" class="venue-card">
+    <div class="venue-icon">⛪</div>
+    <div>
+      <h4>സെന്റ് മേരീസ് കത്തീഡ്രൽ ഹാൾ, മണർകാട്</h4>
+      <p>St. Mary's Cathedral Hall, Manarcad, Kottayam, Kerala<br>
+      മേയ് 1, 2026 (വെള്ളി) — രാവിലെ 11:00 മണി</p>
+      <a class="venue-map-btn" href="https://maps.google.com/?q=St+Marys+Cathedral+Manarcad+Kottayam" target="_blank">Google Maps-ൽ കാണുക ↗</a>
+    </div>
+  </div>
+</section>
+
+<!-- SCHEDULE -->
+<section id="schedule">
+  <div class="section-title">📋 ഔദ്യോഗിക പരിപാടി</div>
+  <p class="section-sub">62-ാം വാർഷിക സമ്മേളനം — 13 ഇനങ്ങൾ</p>
+  <div class="timeline">
+    <div class="timeline-item" data-num="1">
+      <h4>🎵 പ്രാർഥനാ ഗാനം</h4>
+      <p>കുടുംബ അംഗങ്ങൾ</p>
+      <span class="tag">Family Members</span>
+    </div>
+    <div class="timeline-item" data-num="2">
+      <h4>✝️ അനുസ്മരണം</h4>
+      <p>മരണപ്പെട്ടവരുടെ ഓർമ്മ — Rev. Fr. Siji Kuruvila, Edattu</p>
+      <span class="tag">Remembrance</span>
+    </div>
+    <div class="timeline-item" data-num="3">
+      <h4>🙏 സ്വാഗതം</h4>
+      <p>ശ്രീ. കുരുവിള കെ. മണി, കരിമ്പന്നൂർ</p>
+      <span class="tag">Welcome Speech</span>
+    </div>
+    <div class="timeline-item" data-num="4">
+      <h4>📄 സെക്രട്ടറി റിപ്പോർട്ട്</h4>
+      <p>ശ്രീ. ലിജു കെ. ജോൺ, കരിമ്പന്നൂർ</p>
+      <span class="tag">Secretary's Report</span>
+    </div>
+    <div class="timeline-item" data-num="5">
+      <h4>🎤 അദ്ധ്യക്ഷ പ്രസംഗം</h4>
+      <p>ശ്രീ. വർഗ്ഗീസ് കെ. മണി, കരിമ്പന്നൂർ</p>
+      <span class="tag">Presidential Address</span>
+    </div>
+    <div class="timeline-item" data-num="6">
+      <h4>🎶 സംഗീത പരിപാടി</h4>
+      <p>കുടുംബ അംഗങ്ങൾ — ഒന്നാം ഭാഗം</p>
+      <span class="tag">Music – Session 1</span>
+    </div>
+    <div class="timeline-item highlight" data-num="7">
+      <h4>🌟 ഉദ്ഘാടനം</h4>
+      <p>Chief Guests — ഔദ്യോഗിക ഉദ്ഘാടനം</p>
+      <span class="tag">Inauguration</span>
+    </div>
+    <div class="timeline-item" data-num="8">
+      <h4>💬 ആശംസകൾ</h4>
+      <p>V.T. Markose · Dr. Thomas Varghese · ശ്രീ. E.C. Thomas (എറണാകുളം)</p>
+      <span class="tag">Felicitations</span>
+    </div>
+    <div class="timeline-item highlight" data-num="9">
+      <h4>🏅 ആദരണം — സ്മത്. ഗ്രേസി കുര്യാക്കോസ്</h4>
+      <p>District Panchayat Member — 3 Presidents ആദരണം ചെയ്യും</p>
+      <span class="tag">Honorary Ceremony</span>
+    </div>
+    <div class="timeline-item" data-num="10">
+      <h4>🎙️ മറുപടി പ്രസംഗം</h4>
+      <p>സ്മത്. ഗ്രേസി കുര്യാക്കോസ്</p>
+      <span class="tag">Reply Speech</span>
+    </div>
+    <div class="timeline-item" data-num="11">
+      <h4>🎶 സംഗീത പരിപാടി — 2</h4>
+      <p>കുടുംബ അംഗങ്ങൾ — രണ്ടാം ഭാഗം</p>
+      <span class="tag">Music – Session 2</span>
+    </div>
+    <div class="timeline-item highlight" data-num="12">
+      <h4>🏆 മെറിറ്റ് അവാർഡ്</h4>
+      <p>Maria Shaji — CBSE 10th · Justin Kuruvila Sunny — 12th</p>
+      <span class="tag">Merit Awards</span>
+    </div>
+    <div class="timeline-item" data-num="13">
+      <h4>🙌 നന്ദി പ്രകടനം</h4>
+      <p>ശ്രീ. E.J. രാജൻ, എറണാകുളം ബ്രാഞ്ച്</p>
+      <span class="tag">Vote of Thanks</span>
+    </div>
+  </div>
+</section>
+
+<!-- BRANCHES -->
+<section id="branches">
+  <div class="section-title">🌿 കുടുംബ ശാഖകൾ</div>
+  <p class="section-sub">Family Branches — ശാഖ തിരഞ്ഞെടുക്കുക</p>
+  <input class="search-bar" type="text" id="branchSearch" placeholder="ശാഖ തിരയുക... (e.g. Karimpannoor, Ernakulam)" oninput="filterBranches()">
+  <div class="branches-grid" id="branchesGrid"></div>
+</section>
+
+<!-- CHART -->
+<section id="chart">
+  <div class="section-title">📊 ശാഖ വിതരണം</div>
+  <p class="section-sub">Branch Distribution — കുടുംബ ശാഖകളുടെ ഒരു ദൃശ്യ ചിത്രം</p>
+  <div class="chart-wrap">
+    <canvas id="branchChart"></canvas>
+  </div>
+</section>
+
+<!-- HISTORY -->
+<section id="history">
+  <div class="section-title">📜 കുടുംബ ചരിത്രം</div>
+  <p class="section-sub">History — 1730 മുതൽ ഇന്നുവരെ</p>
+
+  <div class="history-card">
+    <div class="year">~1730–1740</div>
+    <h4>മണർകാടിലെ ആഗമനം</h4>
+    <p>കരിമ്പന്നൂർ കുടുംബം ഏകദേശം 300 വർഷം മുമ്പ് മണർകാടിൽ സ്ഥിരതാമസമാക്കി. St. Mary's Jacobite Syrian Cathedral-ന് സമീപം ഈ കുടുംബം വേരൂന്നി. കോര, ഇട്ടി, മത്തായി എന്നിവർ പ്രധാന പൂർവ്വ പിതാക്കന്മാരായിരുന്നു.</p>
+  </div>
+  <div class="history-card">
+    <div class="year">1964</div>
+    <h4>കുടുംബയോഗം സ്ഥാപനം</h4>
+    <p>കരിമ്പന്നൂർ കുടുംബയോഗം ഔദ്യോഗികമായി 1964-ൽ സ്ഥാപിതമായി. കേരളത്തിന്റെ വിവിധ ഭാഗങ്ങളിൽ ചിതറിക്കിടക്കുന്ന കുടുംബ ശാഖകളെ ഒരുമിപ്പിക്കാനുള്ള ഉദ്ദേശ്യത്തോടെ ആരംഭിച്ചു.</p>
+  </div>
+  <div class="history-card">
+    <div class="year">1964–2025</div>
+    <h4>61 വർഷങ്ങൾ — വളർച്ചയുടെ കഥ</h4>
+    <p>ഓരോ വർഷവും വാർഷിക സമ്മേളനം കുടുംബ ഐക്യം ഉറപ്പിക്കുന്നു. കരിമ്പന്നൂർ, കരിപ്പാപ്പുറത്ത്, പുത്തൻപുറയിൽ, മണിമലേത്ത്, വഴകുലത്ത്, പടിക്കൽ, കൊല്ലട്, തൊടുപുഴ, എറണാകുളം എന്നിങ്ങനെ ശാഖകൾ വ്യാപിച്ചിരിക്കുന്നു.</p>
+  </div>
+  <div class="history-card">
+    <div class="year">2026</div>
+    <h4>62-ാം വാർഷിക സമ്മേളനം</h4>
+    <p>62-ാം വർഷത്തിൽ, St. Mary's Cathedral Hall, Manarcad-ൽ മേയ് 1-ന് വാർഷിക സമ്മേളനം നടക്കുന്നു. "The Big Tree" — ഒരൊറ്റ വൃക്ഷം, അനേകം ശാഖകൾ.</p>
+  </div>
+</section>
+
+<footer>
+  <p><strong>കരിമ്പന്നൂർ കുടുംബയോഗം</strong> · 62-ാം വാർഷിക സമ്മേളനം · മേയ് 1, 2026</p>
+  <p style="margin-top:0.5rem;">🌳 1730 – 2026 · Manarcad, Kottayam, Kerala</p>
+</footer>
+
+<script>
+// ── COUNTDOWN ──
+function updateCountdown() {
+  const target = new Date('2026-05-01T11:00:00+05:30').getTime();
+  const now = Date.now();
+  const diff = target - now;
+  if (diff <= 0) {
+    document.getElementById('countdown').innerHTML = '<p style="color:var(--gold);font-size:1.2rem;font-family:Noto Serif Malayalam">🎉 സമ്മേളനം ആരംഭിച്ചു!</p>';
+    return;
+  }
+  const d = Math.floor(diff / 86400000);
+  const h = Math.floor((diff % 86400000) / 3600000);
+  const m = Math.floor((diff % 3600000) / 60000);
+  const s = Math.floor((diff % 60000) / 1000);
+  document.getElementById('cd-d').textContent = d;
+  document.getElementById('cd-h').textContent = String(h).padStart(2,'0');
+  document.getElementById('cd-m').textContent = String(m).padStart(2,'0');
+  document.getElementById('cd-s').textContent = String(s).padStart(2,'0');
+}
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+// ── NAV ACTIVE ──
+function setActive(el) {
+  document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+  el.classList.add('active');
+}
+
+// ── BRANCH DATA ──
+const branches = [
+  { name: 'കരിമ്പന്നൂർ', eng: 'Karimpannoor', note: 'Manarcad — പ്രധാന ശാഖ', icon: '🌳', tags: ['Mani','John','Kuruvila'] },
+  { name: 'കരിപ്പാപ്പുറത്ത്', eng: 'Karippappurathu', note: 'Manarcad', icon: '🌿', tags: ['Mathai','Kuriakose'] },
+  { name: 'പുത്തൻപുറയിൽ', eng: 'Puthenpurayil', note: 'Kottayam', icon: '🌿', tags: ['Thomas','Varghese'] },
+  { name: 'മണിമലേത്ത്', eng: 'Manimalethu', note: 'Kottayam', icon: '🌱', tags: ['Itty','Jose'] },
+  { name: 'വഴകുലത്ത്', eng: 'Vazhakulathu (Olassa)', note: 'Olassa', icon: '🌱', tags: ['Kora','Antony'] },
+  { name: 'പടിക്കൽ', eng: 'Padickal', note: 'Manarcad area', icon: '🍃', tags: ['George','Philip'] },
+  { name: 'കൊല്ലട്', eng: 'Kollad', note: 'Kottayam', icon: '🍃', tags: ['Rajan','Abraham'] },
+  { name: 'തൊടുപുഴ', eng: 'Thodupuzha', note: 'Idukki district', icon: '🌾', tags: ['Saji','Biju'] },
+  { name: 'എറണാകുളം', eng: 'Ernakulam', note: 'Ernakulam district', icon: '🏙️', tags: ['Thomas','Rajan','Sunny'] },
+];
+
+function renderBranches(list) {
+  document.getElementById('branchesGrid').innerHTML = list.map(b => `
+    <div class="branch-card">
+      <div class="branch-icon">${b.icon}</div>
+      <h4>${b.name}</h4>
+      <p>${b.eng} · ${b.note}</p>
+      <div class="sub-branches">${b.tags.map(t=>`<span class="sub-tag">${t}</span>`).join('')}</div>
+    </div>
+  `).join('');
+}
+renderBranches(branches);
+
+function filterBranches() {
+  const q = document.getElementById('branchSearch').value.toLowerCase();
+  renderBranches(branches.filter(b =>
+    b.name.includes(q) || b.eng.toLowerCase().includes(q) ||
+    b.note.toLowerCase().includes(q) || b.tags.some(t=>t.toLowerCase().includes(q))
+  ));
+}
+
+// ── CHART ──
+new Chart(document.getElementById('branchChart'), {
+  type: 'doughnut',
+  data: {
+    labels: branches.map(b => b.eng),
+    datasets: [{
+      data: [30, 12, 10, 8, 8, 7, 8, 8, 9],
+      backgroundColor: ['#2d6a4f','#52b788','#74c69d','#95d5b2','#b7e4c7','#6b3f1e','#a0522d','#c9a84c','#1a3d2b'],
+      borderWidth: 2,
+      borderColor: '#fdf8f0',
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { position: 'right', labels: { font: { size: 11 }, padding: 10 } },
+      tooltip: { callbacks: { label: ctx => ` ${ctx.label}: ~${ctx.parsed}%` } }
+    }
+  }
+});
+</script>
+</body>
+</html>
